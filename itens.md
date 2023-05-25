@@ -1,0 +1,5 @@
+-sweet alert (swal) = https://sweetalert2.github.io/
+-react modal - https://reactcommunity.org/react-modal/
+-react icons - https://react-icons.github.io/react-icons
+-styled-components - https://styled-components.com/
+-react-router-dom - https://reactrouter.com/en/main
