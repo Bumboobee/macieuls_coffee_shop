@@ -52,8 +52,10 @@ export const ItensProvider = ({ children }) => {
 
         const data = await response.json();
         setInitialData(data);
+        
       } catch (error) {
         console.error("Error fetching data:", error);
+        
         handleSwal(
           "Algo deu errado!",
           "",
@@ -97,6 +99,39 @@ export const ItensProvider = ({ children }) => {
     const urlParts = window.location.pathname.split("/");
     setCurrentUrl("/" + urlParts[1]);
   }, []);
+
+  const fetchData = async () => {
+    try {
+      const url = `${
+        import.meta.env.VITE_API_URL_LIST_ALL + import.meta.env.VITE_API_TOKEN
+      }`;
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+
+      const data = await response.json();
+      setInitialData(data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+
+      handleSwal(
+        "Algo deu errado!",
+        "",
+        `<h5>Não foi possível carregar os produtos, contate o setor de TI</h5>`,
+        "error",
+        "",
+        "Cancelar",
+        false,
+        false,
+        "",
+        2500,
+        "",
+        "#BB4549"
+      );
+    }
+  };
 
   const openModalOrder = () => {
     setModalOrderIsOpen(true);
@@ -234,6 +269,8 @@ export const ItensProvider = ({ children }) => {
   };
 
   const handleDelete = (idProduto, product) => {
+    const URL_DELETE_PRODUCT = `${import.meta.env.VITE_API_URL_DEFAULT}?token=${import.meta.env.VITE_API_TOKEN}&idProduto=${idProduto}&method=DELETE`;
+
     handleSwal(
       "Remover Produto?",
       "",
@@ -246,23 +283,17 @@ export const ItensProvider = ({ children }) => {
       "",
       "",
       () => {
-        const URL_DELETE_PRODUCT = `${import.meta.env.VITE_API_URL_DEFAULT}?token=${import.meta.env.VITE_API_TOKEN}&idProduto=${1024}`;
-
-        let config = {
-          method: 'delete',
-          maxBodyLength: Infinity,
-          url: 'https://www.fateclins.edu.br/felipeMaciel/api/macieulsCoffee/produto.php?token=E1A1248EB73590E7EE97B5F112A588239FD1A2C9F89C077489743DF692257A34&idProduto=1024',
-          headers: { }
-        };
-        
-        axios.request(config)
-        .then((response) => {
-          console.log(JSON.stringify(response.data));
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-        
+        axios
+          .get(URL_DELETE_PRODUCT)
+          .then((response) => {
+            console.log(initialData)
+            console.log(response.status);
+            const updatedData = initialData.filter((product) => product.idProduto !== idProduto);
+            setInitialData(updatedData);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       },
       "#FAE69E"
     );
@@ -303,7 +334,7 @@ export const ItensProvider = ({ children }) => {
       idCategoria.length > 5 ||
       preco.length > 6 ||
       foto.length > 500 ||
-      descricao.length > 90
+      descricao.length > 190
     ) {
       handleSwal(
         "Ops!",
@@ -340,27 +371,39 @@ export const ItensProvider = ({ children }) => {
         },
       })
       .then((response) => {
-        console.log(response.status);
+        response.status === 201
+          ? (fetchData(),
 
-        setInitialData([newProduct, ...initialData]);
-        console.log(newProduct);
+            closeGenericModal(),
 
-        closeGenericModal();
-
-        handleSwal(
-          "Produto criado com sucesso!",
-          "",
-          `<h5>O produto ${nome} já está disponível.</h5>`,
-          "success",
-          "",
-          "",
-          false,
-          false,
-          "top-right",
-          1500,
-          "",
-          "#0FA37F"
-        );
+            handleSwal(
+              "Produto criado com sucesso!",
+              "",
+              `<h5>O produto ${nome} já está disponível.</h5>`,
+              "success",
+              "",
+              "",
+              false,
+              false,
+              "top-right",
+              1500,
+              "",
+              "#0FA37F"
+            ))
+          : handleSwal(
+              "Algo deu errado!",
+              "",
+              `<h5>Não foi possível criar o produto ${nome}, contate o setor de TI</h5>`,
+              "error",
+              "",
+              "Cancelar",
+              false,
+              false,
+              "",
+              2500,
+              "",
+              "#BB4549"
+            );
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -428,13 +471,12 @@ export const ItensProvider = ({ children }) => {
       return;
     }
 
-    //fazer validação do tamanho dos campos
     if (
       nome.length > 50 ||
       idCategoria.length > 5 ||
       preco.length > 6 ||
-      foto.length > 50 ||
-      descricao.length > 90
+      foto.length > 500 ||
+      descricao.length > 190
     ) {
       handleSwal(
         "Ops!",
@@ -461,77 +503,74 @@ export const ItensProvider = ({ children }) => {
       preco,
     };
 
-    const editedProductIndex = initialData.findIndex(
-      (product) => product.idProduto === idProduto
-    );
-
-    if (editedProductIndex !== -1) {
-      const updatedData = [...initialData];
-      updatedData[editedProductIndex] = editedProduct;
-      setInitialData(updatedData);
+    const editedContainer = {      
+      idProduto: idProduto,      
+      token: import.meta.env.VITE_API_TOKEN,
+      produto: JSON.stringify(editedProduct),
     }
 
-    const URL_UPDATE = `${import.meta.env.VITE_API_URL_DEFAULT}?token=${import.meta.env.VITE_API_TOKEN}`;
+    const URL_UPDATE = `${import.meta.env.VITE_API_URL_DEFAULT}?method=PUT`;
 
-    console.log(editedProduct)
-    console.log(idProduto)
-
-    let editedProductTest = {
-      nome: "Teste",
-      preco: "1.30",
-      idCategoria: 1,
-      descricao: "Nova descrição",
-      foto: "novaFoto.jpg"
-    };
-  
-    let data = new URLSearchParams();
-    data.append('idProduto', '72');
-    data.append('produto', JSON.stringify(editedProductTest));
-  
-    let config = {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    };
-  
-    axios.put('https://www.fateclins.edu.br/felipeMaciel/api/macieulsCoffee/produto.php?token=E1A1248EB73590E7EE97B5F112A588239FD1A2C9F89C077489743DF692257A34', data, config)
+    axios
+      .post(URL_UPDATE, editedContainer, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      })
       .then((response) => {
-        console.log(response.data);
+        response.status === 204
+          ? (
+            fetchData(),
+            
+            closeGenericModal(),
+            
+            handleSwal(
+              "Produto editado com sucesso!",
+              "",
+              `<h5>O produto ${nome} foi atualizado!.</h5>`,
+              "success",
+              "",
+              "",
+              false,
+              false,
+              "top-right",
+              1500,
+              "",
+              "#0FA37F"
+            ))
+          : handleSwal(
+              "Algo deu errado!",
+              "",
+              `<h5>Não foi possível editar o produto ${nome}, contate o setor de TI</h5>`,
+              "error",
+              "",
+              "Cancelar",
+              false,
+              false,
+              "",
+              2500,
+              "",
+              "#BB4549"
+            );
       })
       .catch((error) => {
-        console.log('Error fetching data:', error);
+        console.error("Error fetching data:", error);
+
+        handleSwal(
+          "Algo deu errado!",
+          "",
+          `<h5>Não foi possível editar o produto ${nome}, contate o setor de TI</h5>`,
+          "error",
+          "",
+          "Cancelar",
+          false,
+          false,
+          "",
+          2500,
+          "",
+          "#BB4549"
+        );
       });
-
-      // var settings = {
-      //   "url": "https://www.fateclins.edu.br/felipeMaciel/api/macieulsCoffee/produto.php?token=E1A1248EB73590E7EE97B5F112A588239FD1A2C9F89C077489743DF692257A34",
-      //   "method": "PUT",
-      //   "timeout": 0,
-      //   "headers": {
-      //     "Content-Type": "application/x-www-form-urlencoded"
-      //   },
-      //   "data": {
-      //     "idProduto": "digite o id do produto",
-      //     "produto": "{\"nome\": \"Teste\", \"preco\" : \"1.30\", \"idCategoria\" : 1, \"descricao\": \"Nova descrição\", \"foto\": \"novaFoto.jpg\"}"
-      //   }
-      // };
-     
-
-    //closeGenericModal();
-
-    // handleSwal(
-    //   "Produto editado com sucesso!",
-    //   "",
-    //   `<h5>O produto ${nome} foi atualizado!.</h5>`,
-    //   "success",
-    //   "",
-    //   "",
-    //   false,
-    //   false,
-    //   "top-right",
-    //   1500,
-    //   "",
-    //   "#0FA37F"
-    // );
   };
 
   const handleSubmitGenericForm = (event, type) => {
