@@ -8,7 +8,7 @@ import GenericModal from "../../shared/modal";
 
 function Login() {
   const [answer, setAnswer] = useState("");
-  const [correctAnswer, setCorrectAnswer] = useState(import.meta.env.VITE_SECRET_AWSER);
+  const [correctAnswer, setCorrectAnswer] = useState(import.meta.env.VITE_SECRET_ANSWER);
   const [question, setQuestion] = useState(import.meta.env.VITE_SECRET_QUESTION)
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 

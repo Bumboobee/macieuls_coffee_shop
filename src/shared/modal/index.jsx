@@ -74,7 +74,7 @@ function GenericModal() {
               <ModalStyle.Input
                 type="number"
                 name="value"
-                placeholder="Digite o valor do Produto"
+                placeholder="00.00"
                 min={0}
                 value={preco}
                 onChange={handleValueChange}

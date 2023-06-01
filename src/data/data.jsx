@@ -161,10 +161,19 @@ const DataItens = [
     nome: "Mocha Branco",
     idCategoria: "2",
     preco: "6.50",
-    descricao: "Café com leite, chocolate branco.",
+    descricao: "Café com leite e chocolate branco.",
     foto: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1089&q=80",
     shortLink: "https://shre.ink/QXZh"
   },
+  {
+    idProduto: "19",
+    nome: "Café Chantilly et Chocolat",
+    idCategoria: "2",
+    preco: "9.50",
+    descricao: "Café com leite e chocolate com chantilly e raspas de chocolate.",
+    foto: "https://images.unsplash.com/photo-1570210334445-ca2b7eae5c0a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=494&q=80",
+    shortLink: ""
+  }
 ];
 export default DataItens;
 
@@ -173,3 +182,15 @@ export default DataItens;
  * https://url.gratis/pt-br/
  * https://www.encurtador.com.br/ {acho que é pago :/ funcionou para alguns}
 */
+
+/**
+ * way to update data:
+ *   
+  {
+    "nome": "blabala", 
+    "preco" : "0.00", 
+    "idCategoria" : 2, 
+    "descricao": "blabala.", 
+    "foto": "blabala"
+  }
+ */
