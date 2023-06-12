@@ -36,7 +36,7 @@ The development process for this project involved utilizing React and its variou
 
 ## Check It Out!
 
-To experience Macieul's Coffee Shop, visit the [website](https://macieuls-coffee-shop.com](https://macieuls-coffee.netlify.app/) and explore our menu, place orders, and enjoy the coffee shop experience.
+To experience Macieul's Coffee Shop, visit the [website](https://macieuls-coffee.netlify.app/](https://macieuls-coffee.netlify.app/)) and explore our menu, place orders, and enjoy the coffee shop experience.
 
 <div align="center">
 
