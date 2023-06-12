@@ -6,6 +6,8 @@ import * as ModalStyle from "./style";
 import Button from "../../shared/button";
 import { GiCancel } from "react-icons/gi";
 import { AiOutlineCheckCircle } from "react-icons/ai";
+import axios from "axios";
+import { stringify } from "uuid";
 
 const customStyles = {
   content: {
@@ -99,34 +101,84 @@ function ModalItem() {
       order.map((item) => {
         let data = {};
         data["nome"] = item.nome;
-        data["quantidade"] = item.qtde;
+        data["quantidade"] = item.qtde.toString();
 
         orderToSend.push(data);
       });
 
-      console.log("table", tableNumber);
-      console.log("amount", amount);
-      console.log("order", orderToSend);
-
+      console.log("mesa", tableNumber);
+      console.log("total", amount);
+      console.log("pedido", orderToSend);
+      
+      const pedido = {
+        token: import.meta.env.VITE_API_TOKEN,
+        mesa: tableNumber,
+        total: amount.toString(),
+        pedido: JSON.stringify([...orderToSend])
+      };
+      console.log(pedido)
       //send data do api
+      axios
+      .post(import.meta.env.VITE_API_URL_PEDIDO, pedido, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      })
+      .then((response) => {
+        response.status === 201
+          ? (
+            handleReset("modal"),
 
-      handleReset("modal");
-      closeModal();
+            closeModal(),
 
-      handleSwal(
-        "Pedido enviado com sucesso!",
-        "",
-        `<h5>A cozinha já recebeu o pedido da mesa ${tableNumber}, em pouco tempo estará pronto.</h5>`,
-        "success",
-        "",
-        "",
-        false,
-        false,
-        "top-right",
-        4500,
-        "",
-        "#0FA37F"
-      );
+            handleSwal(
+              "Pedido enviado com sucesso!",
+              "",
+              `<h5>A cozinha já recebeu o pedido da mesa ${tableNumber}, em pouco tempo estará pronto.</h5>`,
+              "success",
+              "",
+              "",
+              false,
+              false,
+              "top-right",
+              4500,
+              "",
+              "#0FA37F"
+            )
+            )
+          : handleSwal(
+              "Algo deu errado!",
+              "",
+              `<h5>Não foi possível enviar o pedido da mesa ${tableNumber}, contate o setor de TI</h5>`,
+              "error",
+              "",
+              "Cancelar",
+              false,
+              false,
+              "",
+              2500,
+              "",
+              "#BB4549"
+            );
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+
+        handleSwal(
+          "Algo deu errado!",
+          "",
+          `<h5>Não foi possível enviar os pedidos, contate o setor de TI</h5>`,
+          "error",
+          "",
+          "Cancelar",
+          false,
+          false,
+          "",
+          2500,
+          "",
+          "#BB4549"
+        );
+      });
     }
 
     return false;
