@@ -8,13 +8,27 @@ Macieul's Coffee Shop is a React-based website that allows users to explore our 
 
 ## Features
 
-- **React Router Dom:** Provides routing capabilities for navigating through different pages of the website.
-- **Swal:** Implements beautiful and customizable alert modals for displaying notifications to users.
-- **React Modal:** Enables the use of modals for additional user interactions.
-- **UUID:** Generates unique identifiers for elements in the application.
-- **React Context:** Manages global state and facilitates communication between different components.
-- **React Icons:** Offers a comprehensive library of icons for visual representation.
-- **Framer Motion:** Adds smooth and interactive animations to enhance the user interface.
+Macieul's Coffee Shop incorporates the following features and dependencies to enhance its functionality and user experience:
+
+- **axios** (version 1.4.0): A popular HTTP client for making API requests, allowing seamless communication between the front-end and back-end of the application.
+
+- **framer-motion** (version 10.12.12): A library that provides smooth and interactive animations, bringing the user interface to life and creating an engaging user experience.
+
+- **react** (version 18.2.0) and **react-dom** (version 18.2.0): The core libraries for building React applications, allowing for the creation of reusable and interactive components.
+
+- **react-icons** (version 4.8.0): A comprehensive library of icons for React applications, providing a wide range of options for visual representation.
+
+- **react-modal** (version 3.16.1): A component library that enables the use of modals, allowing for additional user interactions without navigating away from the current page.
+
+- **react-router** (version 6.11.2) and **react-router-dom** (version 6.11.2): Libraries for implementing routing capabilities in React applications, enabling navigation between different pages or views.
+
+- **styled-components** (version 6.0.0-rc.1): A CSS-in-JS library that allows developers to write CSS code within JavaScript files, providing better organization and component-based styling.
+
+- **sweetalert2** (version 11.7.5): A customizable and attractive alert modal library, offering a range of options for displaying notifications to users.
+
+- **uuid** (version 9.0.0): A library for generating unique identifiers, useful for assigning keys to elements and managing state in React components.
+
+By leveraging these dependencies, Macieul's Coffee Shop ensures a seamless, interactive, and visually appealing experience for users.
 
 ## Development Process
 
