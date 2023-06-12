@@ -34,10 +34,6 @@ By leveraging these dependencies, Macieul's Coffee Shop ensures a seamless, inte
 
 The development process for this project involved utilizing React and its various libraries and dependencies. The website offers a responsive layout and a relaxing vibe, with a visually appealing color scheme.
 
-## Check It Out!
-
-To experience Macieul's Coffee Shop, visit the [website](https://macieuls-coffee.netlify.app/](https://macieuls-coffee.netlify.app/)) and explore our menu, place orders, and enjoy the coffee shop experience.
-
 ## Endpoints
 
 | Endpoint                                         | Description                                     |
@@ -47,6 +43,10 @@ To experience Macieul's Coffee Shop, visit the [website](https://macieuls-coffee
 | [https://macieuls-coffee.netlify.app/kitchen](https://macieuls-coffee.netlify.app/kitchen) | Endpoint for the kitchen area                    |
 
 Please note that the `/manager` endpoint is restricted and should only be accessed by authorized personnel.
+
+## Check It Out!
+
+To experience Macieul's Coffee Shop, visit the [website](https://macieuls-coffee.netlify.app/](https://macieuls-coffee.netlify.app/)) and explore our menu, place orders, and enjoy the coffee shop experience.
 
 <div align="center">
 
