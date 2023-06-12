@@ -38,6 +38,16 @@ The development process for this project involved utilizing React and its variou
 
 To experience Macieul's Coffee Shop, visit the [website](https://macieuls-coffee.netlify.app/](https://macieuls-coffee.netlify.app/)) and explore our menu, place orders, and enjoy the coffee shop experience.
 
+## Endpoints
+
+| Endpoint                                         | Description                                     |
+| ------------------------------------------------ | ----------------------------------------------- |
+| [https://macieuls-coffee.netlify.app/](https://macieuls-coffee.netlify.app/)             | Main endpoint to access Macieul's Coffee Shop    |
+| [https://macieuls-coffee.netlify.app/manager](https://macieuls-coffee.netlify.app/manager) | Restricted access area for managers             |
+| [https://macieuls-coffee.netlify.app/kitchen](https://macieuls-coffee.netlify.app/kitchen) | Endpoint for the kitchen area                    |
+
+Please note that the `/manager` endpoint is restricted and should only be accessed by authorized personnel.
+
 <div align="center">
 
 ![giphy](https://github.com/Bumboobee/macieuls_coffee_shop/assets/94147847/0b9ef48f-a4fb-40c8-b213-fe6b53ee487a)
